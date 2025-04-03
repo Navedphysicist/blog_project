@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Header , Cookie , Form, UploadFile,File
 from fastapi.responses import Response,HTMLResponse , PlainTextResponse
 from typing import Optional , List
-from schemas.product import ProdcutInfo
+# from schemas.product import ProdcutInfo
 
 
 router = APIRouter(
