@@ -6,5 +6,5 @@ class Blog(BaseModel):
     content : str
 
     class Config:
-        orm_mode = True
+        from_atrributes = True
 

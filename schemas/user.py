@@ -21,7 +21,7 @@ class UserDisplay(BaseModel):
     blogs : List[Blog] = []
 
     class Config():
-        orm_mode = True
+        from_atrributes = True
 
 
 class Login(BaseModel):
