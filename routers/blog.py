@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from db.database import get_db
 from db import db_blog
 from typing import List
-from utils.token import oauth2_scheme , get_current_user
+from utils.token import  get_current_user
 from schemas.user import UserBase
 
 
