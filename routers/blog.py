@@ -4,6 +4,9 @@ from sqlalchemy.orm import Session
 from db.database import get_db
 from db import db_blog
 from typing import List
+from utils.token import oauth2_scheme , get_current_user
+from schemas.user import UserBase
+
 
 router = APIRouter(
     prefix='/blogs',
@@ -11,8 +14,8 @@ router = APIRouter(
 )
 
 @router.post('/',response_model=Blog)
-def create_blog(request : Blog,db:Session = Depends(get_db)):
-    user_id = 2
+def create_blog(request : Blog,db:Session = Depends(get_db), current_user:UserBase= Depends(get_current_user)):
+    user_id = current_user.id
     return db_blog.create_blog(db,request,user_id)
 
 @router.get('/',response_model=List[Blog])

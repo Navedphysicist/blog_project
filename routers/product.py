@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Header , Cookie , Form, UploadFile,File
+from fastapi import APIRouter, Header , Cookie , Form, UploadFile,File, Depends
 from fastapi.responses import Response,HTMLResponse , PlainTextResponse
 from typing import Optional , List
+from utils.token import oauth2_scheme
 # from schemas.product import ProdcutInfo
 
 
@@ -91,7 +92,8 @@ def get_product(id:int):
 def create_product( name : str = Form(...), 
                    brand_name : str = Form(...), 
                    price : Optional[float] = Form(...),
-                   image: UploadFile = File(...)):
+                   image: UploadFile = File(...),
+                   token:str = Depends(oauth2_scheme)):
     return {
         'name' : name,
         'brand' : brand_name,

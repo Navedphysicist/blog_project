@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from schemas.user import UserBase,UserPartial
 from models.user import DbUser
 from hash import Hash
+from utils.token import create_token
 
 def create_user(db:Session,request:UserBase):
     new_user = DbUser(
@@ -104,13 +105,13 @@ def delete_user(db:Session,id:int):
     db.commit()
     return 'User Deleted Successfully'
 
-def login_user(db:Session ,email: str, password: str):
-    user  = db.query(DbUser).filter(DbUser.email == email).first()
+def login_user(db:Session ,username: str, password: str):
+    user  = db.query(DbUser).filter(DbUser.username == username).first()
 
     if not user:
         raise HTTPException(
             status_code= status.HTTP_404_NOT_FOUND,
-            detail=f"User with email: {email} not found"
+            detail=f"User with username: {username} not found"
         )
        
     
@@ -120,5 +121,11 @@ def login_user(db:Session ,email: str, password: str):
             detail="Incorrect Password"
         )
     
+    access_token = create_token(data= {'sub': user.username})
     
-    return {'message': "Login Successful" , "username": user.username}
+
+    
+    return {'message': "Login Successful" ,
+            "username": user.username,
+            'access_token':access_token,
+            'token_type':'bearer'}
