@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from db.database import engine , Base
-from routers import user,blog , auth, product
+from routers import user,blog , auth, product,handle_file
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -10,6 +10,7 @@ app.include_router(user.router)
 app.include_router(blog.router)
 app.include_router(auth.router)
 app.include_router(product.router)
+app.include_router(handle_file.router)
 
 
 app.add_middleware(

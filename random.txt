@@ -1,0 +1,2 @@
+Naved is a Full Stack Gen-AI engineer.
+Good in Python, Fastapi
