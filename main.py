@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Request
 from db.database import engine , Base
 from routers import user,blog , auth, product,handle_file
 from fastapi.middleware.cors import CORSMiddleware
@@ -26,6 +26,15 @@ app.add_middleware(
 app.mount('/files',StaticFiles(directory='uploaded_files'), name='files')
 
 
+@app.middleware('http')
+async def log_requests(request:Request,call_next):
+    start = time.time()
+    response = await call_next(request)
+    duration = time.time() - start
+    print(f"Request: {request.url} | Time Take: {duration}")
+    return response
+
+
 @app.get('/blocking')
 def blocking_route():
     time.sleep(10)  #blocking
@@ -33,8 +42,6 @@ def blocking_route():
     return{
         'route' : 'blocking'
     }
-
-
 @app.get('/non-blocking')
 async def non_blocking_route():
    await asyncio.sleep(10) 
