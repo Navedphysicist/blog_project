@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from db.database import engine , Base
 from routers import user,blog , auth, product,handle_file
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 
 app = FastAPI()
@@ -19,6 +20,8 @@ app.add_middleware(
     allow_credentials = True,
     allow_methods=['*'],
     allow_headers=['*']  )
+
+app.mount('/files',StaticFiles(directory='uploaded_files'), name='files')
 
 
 @app.get('/')
