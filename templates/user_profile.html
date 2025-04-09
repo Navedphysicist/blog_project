@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/templates/static/styles.css">
+</head>
+<body>
+    <div class="profile">
+        <h1>{{name}}'s Profile</h1>
+        {% if avatar_url %}
+        <img src="http:localhost:8000{{ avatar_url }}" alt="User Avatar" class="avatar">
+        {% endif %}
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Position:</strong> {{ position }}</p>
+    </div>
+</body>
+</html>
