@@ -7,3 +7,5 @@ passlib[bcrypt]
 python-multipart
 python-jose
 jinja2
+bcrypt         
+python-jose[cryptography]
