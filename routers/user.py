@@ -11,8 +11,12 @@ router = APIRouter(
     tags = ['User']
 )
 
+def say_hello(request:UserBase):
+    print(f"Hello, {request.username}")
+    return request
+
 @router.post('/',response_model=UserDisplay)
-def create_user(request : UserBase, db:Session = Depends(get_db)):
+def create_user(request : UserBase = Depends(say_hello), db:Session = Depends(get_db)):
     return db_user.create_user(db,request)
    
 @router.get('/',response_model= List[UserDisplay])
